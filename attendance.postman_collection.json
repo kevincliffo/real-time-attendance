@@ -1,0 +1,156 @@
+{
+  "info": {
+    "_postman_id": "2962a1ae-0a5e-412a-ae0f-765bcc5d0225",
+    "name": "attendance",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "18560175"
+  },
+  "item": [
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"admin@yahoo.com\",\r\n    \"password\":\"1Manager@\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/auth/token/login/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "auth",
+            "token",
+            "login",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "staff-attendance",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Token dee84a35fe0a7aa33858d2fc8a15e9f87c6a94c2",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"employee_no\":\"00001\",\r\n    \"device_id\": 1\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/attendance/staff-clockin/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "attendance",
+            "staff-clockin",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logout",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Authorization",
+            "value": "Token 615d2e643d26bbaeeab7a6d3e25a89bc9910d79e",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/auth/token/logout",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "auth",
+            "token",
+            "logout"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"maggy@gmail.com\",\r\n    \"first_name\": \"Vanessa\",\r\n    \"last_name\": \"Oketch\",\r\n    \"dob\": \"1997-01-01\",\r\n    \"gender\": \"FEMALE\",\r\n    \"employee_no\": \"000002\",\r\n    \"mobile_no\": \"+254721212889\",\r\n    \"password\": \"1Manager@\",\r\n    \"re_password\": \"1Manager@\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/auth/users/",
+          "protocol": "http",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "8000",
+          "path": [
+            "auth",
+            "users",
+            ""
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
