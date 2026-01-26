@@ -40,11 +40,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "djoser",
-    'app',
-    'employees',
     'attendance',
     'kiosk',
-    'otp'
+    'otp',
+    'app',
 ]
 
 MIDDLEWARE = [

@@ -1,9 +1,9 @@
 from django.db import models
-from employees.models import Employee
+from app.models import CustomUser
 
 class OTP(models.Model):
-    employee = models.ForeignKey(
-        Employee,
+    user = models.ForeignKey(
+        CustomUser,
         on_delete=models.CASCADE,
         related_name="otps"
     )
@@ -15,5 +15,5 @@ class OTP(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"OTP for {self.employee.employee_no}"
+        return f"OTP for {self.user.employee_no}"
 
