@@ -18,12 +18,15 @@ class StaffAttendanceView(APIView):
         employee_no = request.data.get('employee_no')
         device_id = request.data.get('device_id')
 
-        employee = CustomUser.objects.filter(employee_no=employee_no)
+        employee_qs = CustomUser.objects.filter(employee_no=employee_no)
         created_otp = None
-        if employee:
-            otp = generate_otp(employee[0])
+        if employee_qs:
+            employee = employee_qs[0]
+            otp = generate_otp(employee)
             created_otp = otp
 
+
+            self.send_sms(employee.mobile_no, otp)
         return Response({"otp": created_otp})
     
     def send_sms(self, phone_number, otp):
@@ -37,10 +40,14 @@ class StaffAttendanceView(APIView):
                 phone_number
             ]
         })
+        
         headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'apiKey': os.getenv("AT_API_KEY")
         }
+
+        res = verify_otp(phone_number, otp)
+        print("SMS RESPONSE:", res)
 
         response = requests.request("POST", url, headers=headers, data=payload)
