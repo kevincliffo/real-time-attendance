@@ -9,6 +9,8 @@ from rest_framework.response import Response
 
 from app.models import CustomUser
 from otp.services import generate_otp, verify_otp
+import requests
+import json
 
 class StaffAttendanceView(APIView):
     permission_classes = [IsAuthenticated]
@@ -23,3 +25,22 @@ class StaffAttendanceView(APIView):
             created_otp = otp
 
         return Response({"otp": created_otp})
+    
+    def send_sms(self, phone_number, otp):
+
+        url = os.getenv("AT_API_URL")
+
+        payload = json.dumps({
+            "username": "send_sma",
+            "message": f"OTP: {otp}",
+            "phoneNumbers": [
+                phone_number
+            ]
+        })
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'apiKey': os.getenv("AT_API_KEY")
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
