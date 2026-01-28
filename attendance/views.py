@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from app.models import CustomUser
+from otp.services import generate_otp, verify_otp
 
 class StaffAttendanceView(APIView):
     permission_classes = [IsAuthenticated]
@@ -16,4 +17,9 @@ class StaffAttendanceView(APIView):
         device_id = request.data.get('device_id')
 
         employee = CustomUser.objects.filter(employee_no=employee_no)
-        return Response({"message": employee[0].mobile_no})
+        created_otp = None
+        if employee:
+            otp = generate_otp(employee[0])
+            created_otp = otp
+
+        return Response({"otp": created_otp})

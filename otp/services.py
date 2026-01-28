@@ -10,20 +10,19 @@ def generate_otp(employee):
     otp_hash = hashlib.sha256(raw_otp.encode()).hexdigest()
 
     otp = OTP.objects.create(
-        employee=employee,
+        user=employee,
         otp_hash=otp_hash,
         expires_at=timezone.now() + timedelta(minutes=3)
     )
 
     return raw_otp
 
-
 def verify_otp(employee, submitted_otp):
     otp_hash = hashlib.sha256(submitted_otp.encode()).hexdigest()
 
     try:
         otp = OTP.objects.get(
-            employee=employee,
+            user=employee,
             otp_hash=otp_hash,
             is_used=False,
             expires_at__gt=timezone.now()
